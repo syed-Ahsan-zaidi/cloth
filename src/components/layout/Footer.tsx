@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-1 mb-4">
               <span className="text-2xl font-bold text-rose-500">CLOTH</span>
-              <span className="text-2xl font-light text-white">HAUS</span>
+              <span className="text-2xl font-light text-white">house</span>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed mb-4">
               Premium Pakistani fashion for every occasion. Quality fabrics, timeless designs.
