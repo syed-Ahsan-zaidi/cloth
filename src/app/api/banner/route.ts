@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { isAdmin } from "@/lib/auth";
 import { db } from "@/db";
 import { saleBanner } from "@/db/schema";
 import { eq } from "drizzle-orm";
-
-const ADMIN_EMAIL = "ahsanzaidi51272@gmail.com";
-const SECRET = process.env.NEXTAUTH_SECRET || "clothhaus-secret-key-change-in-production";
 
 export async function GET() {
   const rows = await db.select().from(saleBanner).where(eq(saleBanner.id, "main"));

@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getToken } from "next-auth/jwt";
+import { isAdmin } from "@/lib/auth";
 import { db } from "@/db";
 import { adminProducts, hiddenProducts } from "@/db/schema";
 import { desc } from "drizzle-orm";
-
-const ADMIN_EMAIL = "ahsanzaidi51272@gmail.com";
-const SECRET = process.env.NEXTAUTH_SECRET || "clothhaus-secret-key-change-in-production";
 
 export async function GET() {
   const [dbProds, hidden] = await Promise.all([
@@ -17,8 +14,7 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const token = await getToken({ req, secret: SECRET });
-  if (token?.email !== ADMIN_EMAIL) {
+  if (!(await isAdmin(req))) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
   }
 
