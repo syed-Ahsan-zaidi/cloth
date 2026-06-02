@@ -126,6 +126,10 @@ export default function Navbar() {
                           <LayoutDashboard size={16} className="text-rose-600" />
                           Manage Products
                         </Link>
+                        <Link href="/admin/banner" onClick={() => setDropdownOpen(false)} className="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
+                          <LayoutDashboard size={16} className="text-rose-600" />
+                          Sale Banner
+                        </Link>
                       </>
                     )}
 

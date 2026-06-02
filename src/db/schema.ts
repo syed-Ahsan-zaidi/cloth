@@ -10,6 +10,13 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const saleBanner = pgTable("sale_banner", {
+  id: text("id").primaryKey().default("main"),
+  text: text("text").notNull().default(""),
+  active: boolean("active").default(false).notNull(),
+  bgColor: text("bg_color").notNull().default("#e11d48"),
+});
+
 export const hiddenProducts = pgTable("hidden_products", {
   id: text("id").primaryKey(),
 });
