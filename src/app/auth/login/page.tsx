@@ -120,7 +120,7 @@ export default function LoginPage() {
         <div className="text-center mb-8">
           <Link href="/">
             <span className="text-2xl sm:text-3xl font-bold text-rose-600">CLOTH</span>
-            <span className="text-2xl sm:text-3xl font-light text-gray-700">HAUS</span>
+            <span className="text-2xl sm:text-3xl font-light text-gray-700"> HAUS</span>
           </Link>
           <p className="text-gray-500 mt-2 text-sm">Welcome back! Sign in to your account</p>
         </div>
