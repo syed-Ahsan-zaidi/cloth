@@ -10,10 +10,7 @@ export async function GET() {
 }
 
 export async function POST(req: NextRequest) {
-  const token = await getToken({ req, secret: SECRET });
-  if (token?.email !== ADMIN_EMAIL) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
-  }
+  if (!(await isAdmin(req))) return NextResponse.json({ error: "Unauthorized" }, { status: 403 });
 
   const { text, active, bgColor } = await req.json();
 
