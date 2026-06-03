@@ -18,6 +18,7 @@ export default function ShopPage() {
 function ShopContent() {
   const searchParams = useSearchParams();
   const initialCategory = searchParams.get("category") || "All";
+  const searchQuery = searchParams.get("search") || "";
 
   const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
@@ -54,6 +55,7 @@ function ShopContent() {
 
   const filteredProducts = useMemo(() => {
     let result = products.filter((p) => {
+      if (searchQuery && !p.name.toLowerCase().includes(searchQuery.toLowerCase()) && !p.category.toLowerCase().includes(searchQuery.toLowerCase())) return false;
       if (selectedCategory !== "All" && p.category !== selectedCategory) return false;
       if (selectedSizes.length > 0 && !selectedSizes.some((s) => p.sizes.includes(s))) return false;
       if (selectedColors.length > 0 && !selectedColors.some((c) => p.colors.includes(c))) return false;
@@ -68,7 +70,7 @@ function ShopContent() {
       case "newest": return [...result].filter((p) => p.isNew).concat(result.filter((p) => !p.isNew));
       default: return result;
     }
-  }, [products, selectedCategory, selectedSizes, selectedColors, priceRange, sortBy]);
+  }, [products, searchQuery, selectedCategory, selectedSizes, selectedColors, priceRange, sortBy]);
 
   const clearFilters = () => {
     setSelectedCategory("All");

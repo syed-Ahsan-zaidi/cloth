@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { ShoppingCart, Heart, Search, Menu, X, User, LogOut, LayoutDashboard, LogIn, PackageSearch } from "lucide-react";
 import { useCartStore } from "@/store/cartStore";
 import { useWishlistStore } from "@/store/wishlistStore";
@@ -14,7 +15,15 @@ export default function Navbar() {
   const totalItems = useCartStore((s) => s.totalItems);
   const wishlistItems = useWishlistStore((s) => s.items);
   const { data: session } = useSession();
+  const router = useRouter();
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && searchQuery.trim()) {
+      router.push(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+    }
+  };
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -66,6 +75,7 @@ export default function Navbar() {
               placeholder="Search products..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleSearch}
               className="bg-transparent outline-none text-sm text-gray-700 w-full"
             />
           </div>
