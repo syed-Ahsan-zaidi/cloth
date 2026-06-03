@@ -169,10 +169,13 @@ export default function ProductPage({ params }: PageProps) {
               <span className="text-gray-600 text-sm">{selectedColor}</span>
             </div>
             <div className="flex flex-wrap gap-2">
-              {[...new Set(product.colors)].map((color) => (
+              {[...new Set(product.colors)].map((color, colorIdx) => (
                 <button
                   key={color}
-                  onClick={() => setSelectedColor(color)}
+                  onClick={() => {
+                    setSelectedColor(color);
+                    if (colorIdx < product.images.length) setSelectedImage(colorIdx);
+                  }}
                   className={`px-4 py-2 rounded-xl text-sm font-medium border-2 transition-colors ${
                     selectedColor === color
                       ? "border-rose-600 bg-rose-50 text-rose-600"
