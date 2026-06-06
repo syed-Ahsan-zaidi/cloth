@@ -35,14 +35,20 @@ export default function Navbar() {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/shop", label: "Shop" },
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
-  ];
-
   const isAdmin = session?.user?.role === "admin";
+
+  const navLinks = isAdmin
+    ? [
+        { href: "/admin/orders", label: "Orders Dashboard" },
+        { href: "/admin/products", label: "Manage Products" },
+        { href: "/admin/banner", label: "Sale Banner" },
+      ]
+    : [
+        { href: "/", label: "Home" },
+        { href: "/shop", label: "Shop" },
+        { href: "/about", label: "About" },
+        { href: "/contact", label: "Contact" },
+      ];
 
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
@@ -203,16 +209,6 @@ export default function Navbar() {
 
           {session ? (
             <>
-              {isAdmin && (
-                <>
-                  <Link href="/admin/orders" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 text-gray-700 hover:text-rose-600 font-medium py-3 border-b border-gray-100 text-sm">
-                    <LayoutDashboard size={16} /> Orders Dashboard
-                  </Link>
-                  <Link href="/admin/products" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 text-gray-700 hover:text-rose-600 font-medium py-3 border-b border-gray-100 text-sm">
-                    <LayoutDashboard size={16} /> Manage Products
-                  </Link>
-                </>
-              )}
               {!isAdmin && (
                 <Link href="/account/orders" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 text-gray-700 hover:text-rose-600 font-medium py-3 border-b border-gray-100 text-sm">
                   <PackageSearch size={16} /> Mere Orders
